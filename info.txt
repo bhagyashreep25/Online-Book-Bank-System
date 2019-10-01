@@ -1,0 +1,14 @@
+todo:
+search page DONE
+user profile page
+mainpage - footer
+bookpage - similar books section DONE, free ebook
+all categories page DONE
+individual categories page DONE
+link bookpage to mainpage DONE
+
+add in db
+booklist - price DONE
+book - avg rating, description DONE
+users - personal info (gender, dob - DONE)
+rating - date DONE
