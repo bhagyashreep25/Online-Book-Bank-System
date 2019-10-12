@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(isset($_SESSION['name'])){
+    header("Location:./index.php");
+}
+// $_SESSION['errorMessage']="trial message";
+// unset($_SESSION['errorMessage']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +14,7 @@
     <meta name="viewport" content="width-device-width,initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="sie-edge" />
     <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"> -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Book Bank Login</title>
 </head>
@@ -14,9 +23,14 @@
 	<!--<img src="VB-Books/images/book bank.png">-->
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="#">
-                <h1>Create Account</h1>
-                <div class="social-container">
+            <form action="login_check.php" method="POST">
+                <h1>Create Account</h1><br>
+                <span id="errorMessage"><?php
+                    if(isset($_SESSION['errorMessage'])){
+                        echo $_SESSION['errorMessage'];
+                    }
+                ?></span>
+                <!-- <div class="social-container">
                     <a href="#" class="social">
                         <ion-icon name="logo-facebook"></ion-icon>
                     </a>
@@ -26,20 +40,25 @@
                     <a href="#" class="social">
                         <ion-icon name="logo-linkedin"></ion-icon>
                     </a>
-                </div>
-                <span>or via email</span>
-                <input type="text" placeholder="Name">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-				<input type="password" placeholder="Confirm Password"><br>
+                </div> -->
+                <!-- <span>or via email</span> -->
+                <input class="validate" type="text" name="reg_name" id="reg_name" placeholder="Name">
+                <input class="validate" type="email" name="reg_email" id="reg_email" placeholder="Email">
+                <input class="validate" type="password" name="reg_pass" id="reg_pass" placeholder="Password">
+				<input class="validate" type="password" name="reg_cpass" id="reg_cpass" placeholder="Confirm Password"><br>
                 <button>Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="#">
-                <h1>Book Bank</h1><br>
-				<h2>Sign In<h2>
-                <div class="social-container">
+            <form action="login_check.php" method="POST">
+                <!-- <h1>Book Bank</h1> -->
+				<h1>Sign In<h1>
+                <span id="errorMessage"><?php
+                    if(isset($_SESSION['errorMessage'])){
+                        echo $_SESSION['errorMessage'];
+                    }
+                ?></span>
+                <!-- <div class="social-container">
                     <a href="#" class="social">
                         <ion-icon name="logo-facebook"></ion-icon>
                     </a>
@@ -49,10 +68,10 @@
                     <a href="#" class="social">
                         <ion-icon name="logo-linkedin"></ion-icon>
                     </a>
-                </div>
-                <span>or use your account</span>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password"><br><br>
+                </div> -->
+                <!-- <span>or use your account</span> -->
+                <input class="validate" type="email" name="login_email" id="login_email" placeholder="Email">
+                <input class="validate" type="password" name="login_pass" id="login_pass" placeholder="Password"><br><br>
                 <button>Sign In</button>
             </form>
         </div>

@@ -28,17 +28,18 @@ body {
     background-size: cover;
 }
 
-h1 {
+h1,h2,h3,h4,h5,h6 {
     font-weight: bold;
     margin: 0;
     color: white;
 }
 
 h2 {
-    font-weight: bold;
+    /* font-weight: bold; */
     margin: 0;
     color: white;
 }
+
 
 p {
     font-size: 14px;
@@ -46,6 +47,7 @@ p {
     line-height: 20px;
     letter-spacing: 0.5px;
     margin: 20px 0 30px;
+    padding: 10px;
 	color: white;
 }
 
@@ -172,7 +174,7 @@ button:active {
 }
 
 button:focus {
-    outline: :none;
+    outline: none;
 }
 
 button.ghost {

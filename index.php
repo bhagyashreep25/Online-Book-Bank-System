@@ -1,5 +1,9 @@
+<?php
+session_start();
+?>
 <html lang="en">
-	<head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -8,14 +12,89 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Book Bank - Young Adult</title>
+    <title>Book Bank</title>
     <script>
+        $(document).ready(function () {
+            $('.carousel').carousel();
+        });
+        setInterval(function () {
+            $('.carousel').carousel('next');
+        }, 3000);
         $(document).ready(function () {
             $('.dropdown-trigger').dropdown();
         });
     </script>
 </head>
 
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: whitesmoke;
+		/* background: linear-gradient(rgba(255,255,255,.4), rgba(255,255,255,.4)), url("https://www.incimages.com/uploaded_files/image/970x450/getty_486776676_395332.jpg");
+		background-repeat: repeat-y;
+        background-size: 100%; */
+    }
+
+    .nav {
+        background-color: #4d6d9a
+    }
+
+    .person {
+        padding: 20px;
+    }
+
+    .dropdown-content {
+        width: max-content !important;
+        height: auto !important;
+    }
+
+    .search {
+        height: 60px;
+        width: 400px;
+        text-align: left;
+    }
+
+    .carousel {
+        height: 350px;
+        margin: 0px;
+    }
+
+    .checked {
+        color: orange;
+    }
+
+    .table-wrapper {
+        overflow-x: scroll;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .books {
+        margin: 0px 0px 0px 180px;
+    }
+
+    .btn-floating {
+        background-color: white;
+        text-decoration-color: #4d6d9a;
+    }
+
+    .btn-floating:hover {
+        background-color: skyblue;
+        color: white;
+    }
+
+    .name {
+        padding: 10px;
+    }
+
+    .arrow {
+        color: #4d6d9a;
+    }
+</style>
+
+<!-- CSS for new main nav -->
 <style>
     @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
@@ -55,10 +134,6 @@
         height: 80px;
     }
 
-	.nav{
-		background-color: #4d6d9a;
-	}
-
     .nav-wrapper form {
         margin: auto;
     }
@@ -67,33 +142,49 @@
         padding: 7px;
     }
 
+    .close {
+    color: #4d6d9a;
+    }
+
     .nav-wrapper form #search {
         height: 45px;
         /* background-color: whitesmoke; */
     }
-
-	/* h4{
-		font-weight: bold;
-	} */
-
-	.checked{
-		color: orange;
-	}
 </style>
 
 <body>
-	<header>
+    <!-- <div class="container main">
+        <div class="row">
+            <!-- <div class="col"><img src="images/logo.jpg" width="80px" height="80px"></div> comment -->
+            <!-- <div class="col"><img src="images/2015250.png" width="80px" height="80px"></div> comment
+            <div class="col"><img src="images/501439.svg" width="80px" height="80px"></div>
+            <div class="col"><a href="" class="brand-logo">Book Bank</a></div>
+            <div class="col s6 center"> 
+                <div class="container">
+                    <form>
+                        <div class="input-field transparent search">
+                            <i class="material-icons prefix">search</i>
+                            <input id="search" type="search" required>
+                            <label for="search">Search</label>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <header>
         <nav class="nav-wrapper main transparent z-depth-0">
             <div class="container">
                 <div class="row">
                     <div class="col s1">
-                        <a href="mainpage.html"><img src="images/501439.svg" width="80px" height="80px"></a>
+                        <a href="index.php"><img src="images/501439.svg" width="80px" height="80px"></a>
                     </div>
                     <div class="col">
-                        <a href="mainpage.html"><img id = "name" src="images/book bank.png" width="263" ></a>
+                        <a href="index.php"><img id = "name" src="images/book bank.png" width="263" ></a>
                     </div>
                     <div class="col s6 right">
-                        <form action="searchpage.html">
+                        <form action="searchpage.php">
                             <div class="input-field">
                                 <input id="search" type="search" name="search" placeholder="Search">
                                 <label class="label-icon" for="search">
@@ -109,13 +200,24 @@
     <nav class="nav-wrapper nav">
         <div class="container">
             <ul>
-                <li><a href="all-categories.html">All Categories</a></li>
-                <li><a href="categories.html">Young Adult</a></li>
-                <li><a href="categories.html">Fiction</a></li>
-                <li><a href="categories.html">Drama</a></li>
-                <li><a href="categories.html">Romance</a></li>
+                <li><a href="all-categories.php">All Categories</a></li>
+                <li><a href="categories.php">Young Adult</a></li>
+                <li><a href="categories.php">Fiction</a></li>
+                <li><a href="categories.php">Drama</a></li>
+                <li><a href="categories.php">Romance</a></li>
+                <?php
+                    if(isset($_SESSION['name']))
+                        echo '<li style="float:right"><a class="dropdown-trigger" data-target="dropdown1">
+                    <i class="material-icons white-text arrow">arrow_drop_down</i></a>
+                </li>
+                <li style="float:right"><a>'.$_SESSION['name'].'</a>
+                </li>';
+                    else {
+                        echo '<li style="float:right"><a href="login.php">Login</a></li>';
+                    }
+                ?>
                 <!-- Show when not logged in -->
-                <li style="float:right"><a href="login.html">Login</a></li>
+                <!-- <li style="float:right"><a href="login.php">Login</a></li> -->
                 <!-- show when logged in -->
                 <!-- <li style="float:right"><a class="dropdown-trigger" href="#" data-target="dropdown1">
                     <i class="material-icons white-text arrow">arrow_drop_down</i></a>
@@ -127,17 +229,26 @@
             <ul id="dropdown1" class="dropdown-content right">
                 <li><a href="#" class="black-text">Profile</a></li>
                 <li><a href="#" class="black-text">Notifications</a></li>
-                <li><a href="#" class="black-text">Log Out</a></li>
+                <li><a href="logout.php" class="black-text">Log Out</a></li>
             </ul>
         </div>
     </nav>
-	<div class="container">
-		<h4>Search results for "turtles all the way down"</h4>
-		<div class="row">
+    <div class="carousel center">
+        <a class="carousel-item" href="bookpage.php"><img src="images/turtles.jpg"></a>
+        <a class="carousel-item" href="bookpage.php"><img src="images/jaya.jpg"></a>
+        <a class="carousel-item" href="bookpage.php"><img src="images/fault-stars.jpg"></a>
+        <a class="carousel-item" href="bookpage.php"><img src="images/subtle-art.jpg"></a>
+        <a class="carousel-item" href="bookpage.php"><img src="images/girl-train.jpg"></a>
+    </div>
+
+    <div class="container books">
+        <br><br>
+        <h5>Recently Viewed</h5>
+        <div class="row">
             <ul>
                 <li>
-                    <div id="one" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/turtles.jpg" width="150" height="230"></a>
+                    <div id="one" class="col s3 center">
+                        <a href="bookpage.php"><img src="images/turtles.jpg" width="150" height="230"></a>
                         <h6>Turtles All The Way Down</h6>
                         <p>John Green</p>
                         <p><span class="fa fa-star checked"></span>
@@ -148,8 +259,8 @@
                     </div>
                 </li>
                 <li>
-                    <div id="two" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/fault-stars.jpg" width="150" height="230"></a>
+                    <div id="two" class="col s3 center">
+                        <a href="bookpage.php"><img src="images/fault-stars.jpg" width="150" height="230"></a>
                         <h6>The Fault In Our Stars</h6>
                         <p>John Green</p>
                         <p><span class="fa fa-star checked"></span>
@@ -160,8 +271,8 @@
                     </div>
                 </li>
                 <li>
-                    <div id="three" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/girl-train.jpg" width="150" height="230"></a>
+                    <div id="three" class="col s3 center">
+                        <a href="bookpage.php"><img src="images/girl-train.jpg" width="150" height="230"></a>
                         <h6>The Girl On The Train</h6>
                         <p>Paula Hawkins</p>
                         <p><span class="fa fa-star checked"></span>
@@ -172,8 +283,8 @@
                     </div>
                 </li>
                 <li>
-                    <div id="four" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/jaya.jpg" width="150" height="230"></a>
+                    <div id="four" class="col s3 center">
+                        <a href="bookpage.php"><img src="images/jaya.jpg" width="150" height="230"></a>
                         <h6>Jaya</h6>
                         <p>Devdutt Patnaik</p>
                         <p><span class="fa fa-star checked"></span>
@@ -185,11 +296,15 @@
                 </li>
             </ul>
         </div>
-		<div class="row">
+    </div>
+    <div class="container books">
+        <br><br>
+        <h5>Newly Added</h5>
+        <div class="row">
             <ul>
                 <li>
-                    <div id="one" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/turtles.jpg" width="150" height="230"></a>
+                    <div id="one" class="col s3 center">
+                        <a href="bookpage.php"><img src="images/turtles.jpg" width="150" height="230"></a>
                         <h6>Turtles All The Way Down</h6>
                         <p>John Green</p>
                         <p><span class="fa fa-star checked"></span>
@@ -200,8 +315,8 @@
                     </div>
                 </li>
                 <li>
-                    <div id="two" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/fault-stars.jpg" width="150" height="230"></a>
+                    <div id="two" class="col s3 center">
+                        <a href="bookpage.php"><img src="images/fault-stars.jpg" width="150" height="230"></a>
                         <h6>The Fault In Our Stars</h6>
                         <p>John Green</p>
                         <p><span class="fa fa-star checked"></span>
@@ -212,8 +327,8 @@
                     </div>
                 </li>
                 <li>
-                    <div id="three" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/girl-train.jpg" width="150" height="230"></a>
+                    <div id="three" class="col s3 center">
+                        <a href="bookpage.php"><img src="images/girl-train.jpg" width="150" height="230"></a>
                         <h6>The Girl On The Train</h6>
                         <p>Paula Hawkins</p>
                         <p><span class="fa fa-star checked"></span>
@@ -224,8 +339,8 @@
                     </div>
                 </li>
                 <li>
-                    <div id="four" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/jaya.jpg" width="150" height="230"></a>
+                    <div id="four" class="col s3 center">
+                        <a href="bookpage.php"><img src="images/jaya.jpg" width="150" height="230"></a>
                         <h6>Jaya</h6>
                         <p>Devdutt Patnaik</p>
                         <p><span class="fa fa-star checked"></span>
@@ -237,11 +352,15 @@
                 </li>
             </ul>
         </div>
-		<div class="row">
+    </div>
+    <div class="container books">
+        <br><br>
+        <h5>Sellers Near You</h5>
+        <div class="row">
             <ul>
                 <li>
                     <div id="one" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/turtles.jpg" width="150" height="230"></a>
+                        <a href="bookpage.php"><img src="images/turtles.jpg" width="150" height="230"></a>
                         <h6>Turtles All The Way Down</h6>
                         <p>John Green</p>
                         <p><span class="fa fa-star checked"></span>
@@ -253,7 +372,7 @@
                 </li>
                 <li>
                     <div id="two" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/fault-stars.jpg" width="150" height="230"></a>
+                        <a href="bookpage.php"><img src="images/fault-stars.jpg" width="150" height="230"></a>
                         <h6>The Fault In Our Stars</h6>
                         <p>John Green</p>
                         <p><span class="fa fa-star checked"></span>
@@ -265,7 +384,7 @@
                 </li>
                 <li>
                     <div id="three" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/girl-train.jpg" width="150" height="230"></a>
+                        <a href="bookpage.php"><img src="images/girl-train.jpg" width="150" height="230"></a>
                         <h6>The Girl On The Train</h6>
                         <p>Paula Hawkins</p>
                         <p><span class="fa fa-star checked"></span>
@@ -277,7 +396,7 @@
                 </li>
                 <li>
                     <div id="four" class="col s3 center section scrollspy">
-                        <a href="bookpage.html"><img src="images/jaya.jpg" width="150" height="230"></a>
+                        <a href="bookpage.php"><img src="images/jaya.jpg" width="150" height="230"></a>
                         <h6>Jaya</h6>
                         <p>Devdutt Patnaik</p>
                         <p><span class="fa fa-star checked"></span>
@@ -289,6 +408,7 @@
                 </li>
             </ul>
         </div>
-	</div>
+    </div>
 </body>
+
 </html>
