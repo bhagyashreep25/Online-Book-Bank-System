@@ -1,12 +1,8 @@
 todo:
 user profile page
-mainpage - footer
-bookpage - free ebook
-show error messages on failed login/signup
-update query once populated db
-fetch data on bookpage
-write reviews
 display image on bookpage for reviews and sellers/renters
+show error messages on failed login/signup
+update query on index.php once populated db
 
 add in db
 populate all tables with actual values

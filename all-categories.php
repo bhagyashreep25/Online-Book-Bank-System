@@ -62,18 +62,18 @@ $_SESSION['callingPage'] = "all-categories.php";
                 ?>
             </ul>
         </div>
-		<h4>Fiction</h4>
+		<h4>Mythology</h4>
 		<div class="row">
             <ul>
                 <?php
-                $query2 = "SELECT bid, imageurl, name, author, avgrating from book where genre='fiction' limit 8;";
+                $query2 = "SELECT bid, imageurl, name, author, avgrating from book where genre='mythology' limit 8;";
                 $result2 = pg_query($db_connection, $query2);
                 while($row2 = pg_fetch_row($result2)){
                     $ratingchecked = intval($row2[4]);
                     $ratingunchecked = 5 - $ratingchecked;
                     echo '<li>
                     <div id="one" class="col s3 center">
-                        <a href="bookpage.php?bid='.$row[0].'"><img src="'.$row2[1].'" width="150" height="230"></a>
+                        <a href="bookpage.php?bid='.$row2[0].'"><img src="'.$row2[1].'" width="150" height="230"></a>
                         <h6>'.$row2[2].'</h6>
                         <p>'.$row2[3].'</p>
                         <p>';
@@ -89,18 +89,18 @@ $_SESSION['callingPage'] = "all-categories.php";
                     </div>
                     </li>';
                     $i++;
-                    if($i==4){
+                    if($i%4==0){
                         echo '</ul></div><div class="row"><ul>';
                     }
                 }
                 ?>
             </ul>
         </div>
-		<h4>Drama</h4>
+		<h4>Thriller</h4>
 		<div class="row">
             <ul>
                 <?php
-                $query2 = "SELECT bid, imageurl, name, author, avgrating from book where genre='drama' limit 8;";
+                $query2 = "SELECT bid, imageurl, name, author, avgrating from book where genre='thriller' limit 8;";
                 $result2 = pg_query($db_connection, $query2);
                 $i=0;
                 while($row2 = pg_fetch_row($result2)){
@@ -108,7 +108,7 @@ $_SESSION['callingPage'] = "all-categories.php";
                     $ratingunchecked = 5 - $ratingchecked;
                     echo '<li>
                     <div id="one" class="col s3 center">
-                        <a href="bookpage.php?bid='.$row[0].'"><img src="'.$row2[1].'" width="150" height="230"></a>
+                        <a href="bookpage.php?bid='.$row2[0].'"><img src="'.$row2[1].'" width="150" height="230"></a>
                         <h6>'.$row2[2].'</h6>
                         <p>'.$row2[3].'</p>
                         <p>';
@@ -124,7 +124,7 @@ $_SESSION['callingPage'] = "all-categories.php";
                     </div>
                     </li>';
                     $i++;
-                    if($i==4){
+                    if($i%4==0){
                         echo '</ul></div><div class="row"><ul>';
                     }
                 }
@@ -159,7 +159,7 @@ $_SESSION['callingPage'] = "all-categories.php";
                     </div>
                     </li>';
                     $i++;
-                    if($i==4){
+                    if($i%4==0){
                         echo '</ul></div><div class="row"><ul>';
                     }
                 }
@@ -169,3 +169,6 @@ $_SESSION['callingPage'] = "all-categories.php";
 	</div>
 </body>
 </html>
+<?php
+require_once("./footer.php");
+?>

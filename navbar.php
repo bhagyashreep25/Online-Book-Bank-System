@@ -59,8 +59,8 @@
             <ul>
                 <li><a href="all-categories.php">All Categories</a></li>
                 <li><a href="categories.php?category=young adult">Young Adult</a></li>
-                <li><a href="categories.php?category=fiction">Fiction</a></li>
-                <li><a href="categories.php?category=drama">Drama</a></li>
+                <li><a href="categories.php?category=mythology">Mythology</a></li>
+                <li><a href="categories.php?category=thriller">Thriller</a></li>
                 <li><a href="categories.php?category=romance">Romance</a></li>
                 <?php
                     if(isset($_SESSION['name']))
@@ -85,7 +85,7 @@
             </ul>
             <ul id="dropdown1" class="dropdown-content right">
                 <li><a href="#" class="black-text">Profile</a></li>
-                <li><a href="#" class="black-text">Notifications</a></li>
+                <li><a href="notifications.php?uid=<?php echo $_SESSION['id'];?>" class="black-text">Notifications</a></li>
                 <li><a href="logout.php" class="black-text">Log Out</a></li>
             </ul>
         </div>

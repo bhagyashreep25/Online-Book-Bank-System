@@ -2,6 +2,10 @@
 session_start();
 require_once("./navbar.php");
 require_once("./config.php");
+if(isset($_SESSION['addnotif'])){
+    $message = "The Seller will contact you for furthur news";
+    echo '<script type="text/javascript">alert('.$message.');</script>';
+}
 $_SESSION['callingPage'] = "bookpage.php?bid=".$_GET['bid'];
 // echo $_GET['bid'];
 $query = "SELECT imageurl, name, author, description, avgrating, genre from book where bid=".$_GET['bid'].";";
@@ -11,10 +15,10 @@ $ratingchecked = intval($row[4]);
 $ratingunchecked = 5-$ratingchecked;
 // echo $row;
 
-$query1 = "SELECT username, price from booklist where bid=".$_GET['bid']." and forsale=1;";
+$query1 = "SELECT username, price, uid, bid from booklist where bid=".$_GET['bid']." and forsale=1;";
 $result1 = pg_query($db_connection, $query1);
 
-$query3 = "SELECT username, price from booklist where bid=".$_GET['bid']." and forrent=1;";
+$query3 = "SELECT username, price, uid, bid from booklist where bid=".$_GET['bid']." and forrent=1;";
 $result3 = pg_query($db_connection, $query3);
 ?>
 <html lang="en">
@@ -148,7 +152,7 @@ function responseMessage(msg) {
                                 <div class="collapsible-header valign-wrapper"><img src="images/501439.svg" height="60px" width="60px" class="circle">
                                 <div class="col">'.$row3[0].'<br>Price: '.$row3[1].'</div>
                                 <div class="col offset-m5"><a href="#" class="right review">Visit Profile</a></div>
-                                <i class="material-icons email">add_comment</i></div>
+                                <a href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row3[2].'&bid='.$row3[3].'&username='.$row3[0].'&bookname='.$row[1].'&forsale=1"><i class="material-icons email">add_comment</i></a></div>
                                 </li>';
                                 }
                             }
@@ -360,3 +364,6 @@ function responseMessage(msg) {
     </div>
 </body>
 </html>
+<?php
+require_once("./footer.php");
+?>

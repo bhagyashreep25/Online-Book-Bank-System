@@ -117,3 +117,6 @@ $_SESSION['callingPage'] = "searchpage.php";
     </div>
 </body>
 </html>
+<?php
+require_once("./footer.php");
+?>

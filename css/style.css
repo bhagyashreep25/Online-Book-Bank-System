@@ -25,7 +25,7 @@ body {
 	/*background-image: linear-gradient(to right, #afd275, #e77170);*/
 	/*background-image: linear-gradient(to right, #c0b283, #dcd0c0, #373737);*/
     /*background-image: url(https://collegeinfogeek.com/wp-content/uploads/2018/11/Essential-Books.jpg);*/
-    background-size: cover;
+    background-size: cover; 
 }
 
 h1,h2,h3,h4,h5,h6 {

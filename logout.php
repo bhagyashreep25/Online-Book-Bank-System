@@ -7,11 +7,11 @@ if(isset($_SESSION['name'])){
 	session_unset();
 	session_write_close();
 }
-if(isset($_SESSION['callingPage'])){
-	header("Location:./".$_SESSION['callingPage']);	
-}
-else{
+// if(isset($_SESSION['callingPage'])){
+// 	header("Location:./".$_SESSION['callingPage']);	
+// }
+// else{
 	header("Location:./index.php");
-}
+// }
 ob_flush();
 ?>

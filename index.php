@@ -180,3 +180,6 @@ $_SESSION['callingPage'] = "./index.php";
     </div>
 </body>
 </html>
+<?php
+require_once("./footer.php");
+?>

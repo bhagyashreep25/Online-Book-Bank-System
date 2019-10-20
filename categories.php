@@ -50,7 +50,7 @@ $_SESSION['callingPage'] = "categories.php?category=".$_GET['category'];
                     </div>
                     </li>';
                     $i++;
-                    if($i==4){
+                    if($i%4==0){
                         echo '</ul></div><div class="row"><ul>';
                     }
                 }
@@ -60,3 +60,6 @@ $_SESSION['callingPage'] = "categories.php?category=".$_GET['category'];
 	</div>
 </body>
 </html>
+<?php
+require_once("./footer.php");
+?>
