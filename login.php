@@ -3,8 +3,7 @@ session_start();
 if(isset($_SESSION['name'])){
     header("Location:./index.php");
 }
-// $_SESSION['errorMessage']="trial message";
-// unset($_SESSION['errorMessage']);
+// unset($_SESSION['errorMessage1']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +14,7 @@ if(isset($_SESSION['name'])){
     <meta http-equiv="X-UA-Compatible" content="sie-edge" />
     <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>Book Bank Login</title>
 </head>
 
@@ -26,8 +25,8 @@ if(isset($_SESSION['name'])){
             <form action="login_check.php" method="POST">
                 <h1>Create Account</h1><br>
                 <span id="errorMessage"><?php
-                    if(isset($_SESSION['errorMessage'])){
-                        echo $_SESSION['errorMessage'];
+                    if(isset($_SESSION['errorMessage2']) and $_SESSION['errorMessage2']!=""){
+                        echo $_SESSION['errorMessage2'];
                     }
                 ?></span>
                 <!-- <div class="social-container">
@@ -53,11 +52,11 @@ if(isset($_SESSION['name'])){
             <form action="login_check.php" method="POST">
                 <!-- <h1>Book Bank</h1> -->
 				<h1>Sign In<h1>
-                <span id="errorMessage"><?php
-                    if(isset($_SESSION['errorMessage'])){
-                        echo $_SESSION['errorMessage'];
+                <span id="errorMessage1"><?php
+                    if(isset($_SESSION['errorMessage1']) and $_SESSION['errorMessage1']!=""){
+                        echo $_SESSION['errorMessage1'];
                     }
-                ?></span>
+                ?></span><br>
                 <!-- <div class="social-container">
                     <a href="#" class="social">
                         <ion-icon name="logo-facebook"></ion-icon>

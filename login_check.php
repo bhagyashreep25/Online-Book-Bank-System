@@ -8,7 +8,7 @@
 		try{
 			// echo $email, $pass;
 			print_r($db_connection);
-			$query = "SELECT email, name, password from users where email='" . $email ."';";
+			$query = "SELECT email, name, password, uid from users where email='" . $email ."';";
 			$result = pg_query($db_connection, $query);
 			if(pg_num_rows($result)>0 and $email!="" and $pass!="") {
 				$row = pg_fetch_assoc($result);
@@ -19,8 +19,8 @@
 				echo $correct;
 			}
 			else{
-				// unset($_SESSION['errorMessage']);
-				// $_SESSION['errorMessage']="Error: Email Not Registered";
+				// unset($_SESSION['errorMessage1']);
+				// $_SESSION['errorMessage1']="Error: Email Not Registered";
 				header("Location:./login.php");
 			}
 		}
@@ -30,8 +30,8 @@
 		if($correct==0){
 			$_SESSION['name']=$row['name'];
 			$_SESSION['email']=$row['email'];
+			$_SESSION['id']=$row['uid'];
 			if(isset($_SESSION['callingPage'])){
-				// unset($_SESSION['errorMessage']);
 				header("Location:./".$_SESSION['callingPage']);
 			}
 			else {
@@ -40,8 +40,8 @@
 			exit;
 		}
 		else {
-			// unset($_SESSION['errorMessage']);
-			// $_SESSION['errorMessage']="Error: Password Incorrect";
+			// unset($_SESSION['errorMessage1']);
+			// $_SESSION['errorMessage1']="Error: Password Incorrect";
 			header("Location:./login.php");
 			exit;
 		}
@@ -95,6 +95,8 @@
 			}
 		}
 		else{
+			// unset($_SESSION['errorMessage2']);
+			// $_SESSION['errorMessage2']="Error: Password and Confirm Password do not match";
 			header("Location:./login.php");
 		}
 	}

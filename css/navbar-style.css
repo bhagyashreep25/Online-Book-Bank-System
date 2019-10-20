@@ -1,0 +1,88 @@
+/* CSS for new main nav */
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: whitesmoke;
+        /* background: linear-gradient(rgba(255,255,255,.4), rgba(255,255,255,.4)), url("https://www.incimages.com/uploaded_files/image/970x450/getty_486776676_395332.jpg");
+		background-repeat: repeat-y;
+        background-size: 100%; */
+    }
+
+    .main {
+        padding: 0px;
+        margin: 0px;
+        display: flex;
+        position: relative;
+        height: 80px;
+        color: black;
+    }
+
+    .brand-logo {
+
+        font-size: 50px;
+        font-weight: bold;
+        color: black;
+    }
+
+    img {
+        padding: 10px;
+    }
+
+    #name{
+        padding-left: 10px;
+    }
+
+    .main {
+        height: 80px;
+    }
+
+    .nav-wrapper form {
+        margin: auto;
+    }
+
+    .nav-wrapper .input-field {
+        padding: 7px;
+    }
+
+    .close {
+    color: #4d6d9a;
+    }
+
+    .nav-wrapper form #search {
+        height: 45px;
+        /* background-color: whitesmoke; */
+    }
+
+    .nav {
+        background-color: #4d6d9a
+    }
+
+    .person {
+        padding: 20px;
+    }
+
+    .dropdown-content {
+        width: max-content !important;
+        height: auto !important;
+    }
+
+    .search {
+        height: 60px;
+        width: 400px;
+        text-align: left;
+    }
+
+    .btn-floating {
+        background-color: white;
+        text-decoration-color: #4d6d9a;
+    }
+
+    .btn-floating:hover {
+        background-color: skyblue;
+        color: white;
+    }
+
+    .arrow {
+        color: #4d6d9a;
+    }
