@@ -8,6 +8,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/navbar-style.css">
+
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-trigger').dropdown();
+        });
+    </script>
 </head>
 
     <!-- <div class="container main">
@@ -84,7 +90,7 @@
                 </li>         -->
             </ul>
             <ul id="dropdown1" class="dropdown-content right">
-                <li><a href="#" class="black-text">Profile</a></li>
+                <li><a href="profile.php?uid=<?php echo $_SESSION['id'];?>" class="black-text">Profile</a></li>
                 <li><a href="notifications.php?uid=<?php echo $_SESSION['id'];?>" class="black-text">Notifications</a></li>
                 <li><a href="logout.php" class="black-text">Log Out</a></li>
             </ul>

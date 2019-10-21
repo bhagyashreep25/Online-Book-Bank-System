@@ -3,7 +3,7 @@ session_start();
 if(isset($_SESSION['name'])){
     header("Location:./index.php");
 }
-// unset($_SESSION['errorMessage1']);
+// $_SESSION['errorMessage1'] = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,11 +24,11 @@ if(isset($_SESSION['name'])){
         <div class="form-container sign-up-container">
             <form action="login_check.php" method="POST">
                 <h1>Create Account</h1><br>
-                <span id="errorMessage"><?php
-                    if(isset($_SESSION['errorMessage2']) and $_SESSION['errorMessage2']!=""){
+                <span id="errorMessage2"><b><?php
+                    if(isset($_SESSION['errorMessage2'])){
                         echo $_SESSION['errorMessage2'];
                     }
-                ?></span>
+                ?></b></span><br>
                 <!-- <div class="social-container">
                     <a href="#" class="social">
                         <ion-icon name="logo-facebook"></ion-icon>
@@ -53,7 +53,7 @@ if(isset($_SESSION['name'])){
                 <!-- <h1>Book Bank</h1> -->
 				<h1>Sign In<h1>
                 <span id="errorMessage1"><?php
-                    if(isset($_SESSION['errorMessage1']) and $_SESSION['errorMessage1']!=""){
+                    if(isset($_SESSION['errorMessage1'])){
                         echo $_SESSION['errorMessage1'];
                     }
                 ?></span><br>
@@ -89,8 +89,12 @@ if(isset($_SESSION['name'])){
             </div>
         </div>
     </div>
-    <script src="main.js"></script>
+    <script src="js/main.js"></script>
     <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
 </body>
 
 </html>
+<?php
+    unset($_SESSION["errorMessage1"]);
+    unset($_SESSION["errorMessage2"]);
+?>

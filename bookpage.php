@@ -1,5 +1,6 @@
 <?php
 session_start();
+// header("Refresh:0");
 require_once("./navbar.php");
 require_once("./config.php");
 if(isset($_SESSION['addnotif'])){
@@ -41,73 +42,6 @@ $result3 = pg_query($db_connection, $query3);
             $('.collapsible').collapsible();
         });
     </script>
-    <!-- <script>
-        var ratingValue;
-        $(document).ready(function(){
-  
-  /* 1. Visualizing things on Hover - See next part for action on click */
-  $('#stars li').on('mouseover', function(){
-    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-   
-    // Now highlight all the stars that's not after the current hovered star
-    $(this).parent().children('li.star').each(function(e){
-      if (e < onStar) {
-        $(this).addClass('hover');
-      }
-      else {
-        $(this).removeClass('hover');
-      }
-    });
-    
-  }).on('mouseout', function(){
-    $(this).parent().children('li.star').each(function(e){
-      $(this).removeClass('hover');
-    });
-  });
-  
-  
-  /* 2. Action to perform on click */
-  $('#stars li').on('click', function(){
-    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
-    var stars = $(this).parent().children('li.star');
-    
-    for (i = 0; i < stars.length; i++) {
-      $(stars[i]).removeClass('selected');
-    }
-    
-    for (i = 0; i < onStar; i++) {
-      $(stars[i]).addClass('selected');
-    }
-    
-    // JUST RESPONSE (Not needed)
-    ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-    var msg = "";
-    if (ratingValue > 1) {
-        msg = "Thanks! You rated this " + ratingValue + " stars.";
-        sessionStorage.setItem("userRating", ratingValue);
-    }
-    else {
-        msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
-    }
-    responseMessage(msg);
-    
-  });
-  
-  
-});
-
-
-function responseMessage(msg) {
-  $('.success-box').fadeIn(200);  
-  $('.success-box div.text-message').html("<span>" + msg + "</span>");
-//   console.log(ratingValue);
-//   $.post("trial.php",{id:ratingValue},function(result){
-//         console.log(result);
-//         console.log(result);
-//         }
-//         );
-// }
-    </script> -->
 </head>
 <body>
     <div class="container two">
@@ -151,7 +85,7 @@ function responseMessage(msg) {
                                 echo '<li>
                                 <div class="collapsible-header valign-wrapper"><img src="images/501439.svg" height="60px" width="60px" class="circle">
                                 <div class="col">'.$row3[0].'<br>Price: '.$row3[1].'</div>
-                                <div class="col offset-m5"><a href="#" class="right review">Visit Profile</a></div>
+                                <div class="col offset-m5"><a href="profile.php?uid='.$row3[2].'" class="right review">Visit Profile</a></div>
                                 <a href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row3[2].'&bid='.$row3[3].'&username='.$row3[0].'&bookname='.$row[1].'&forsale=1"><i class="material-icons email">add_comment</i></a></div>
                                 </li>';
                                 }
@@ -176,8 +110,8 @@ function responseMessage(msg) {
                                 echo '<li>
                                 <div class="collapsible-header valign-wrapper"><img src="images/501439.svg" height="60px" width="60px" class="circle">
                                 <div class="col">'.$row4[0].'<br>Price: '.$row4[1].'</div>
-                                <div class="col offset-m5"><a href="#" class="right review">Visit Profile</a></div>
-                                <i class="material-icons email">add_comment</i></div>
+                                <div class="col offset-m5"><a href="profile.php?uid='.$row4[2].'" class="right review">Visit Profile</a></div>
+                                <a href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row4[2].'&bid='.$row4[3].'&username='.$row4[0].'&bookname='.$row[1].'&forsale=0"><i class="material-icons email">add_comment</i></a></div>
                                 </li>';
                                 }   
                             }
@@ -201,21 +135,20 @@ function responseMessage(msg) {
                             <div class="card-action">
                                 <a href="#modal1" class="modal-trigger">More</a>
                             </div>
-                        </div>
-                        <div class="modal" id="modal1">
-                            <div class="modal-content">
-                                <h5>Description</h5>
-                                <p><?php echo $row[3];?></p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="" class="modal-close btn">Close</a>
-                            </div>
                         </div> 
                     </div>
                 </div>
+                <div class="modal" id="modal1">
+                    <div class="modal-content">
+                        <h5>Description</h5>
+                            <p><?php echo $row[3];?></p>
+                        <div class="modal-footer">
+                            <a href="" class="modal-close btn">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-    </div>
     </div>
     <div class="container">
         <h5>Similar Books</h5>
@@ -276,11 +209,12 @@ function responseMessage(msg) {
             <hr><br><br>
             <?php
             if(isset($_POST['textarea1']) or !empty($_POST['textarea1'])){
-                        $insertquery = "INSERT into ratingreview(uid, bid, review, dated, username) values(".$_SESSION['id'].", ".$_GET['bid'].", '".$_POST['textarea1']."', ".date("Ymd").", '".$_SESSION['name']."')";
-                        $insertresult = pg_query($db_connection, $insertquery);
-                        // if($insertresult>0){
-                        //     header("./bookpage.php?bid=".$_GET['bid']);
-                        // }
+                $insertquery = "INSERT into ratingreview(uid, bid, review, dated, username, countstars) values(".$_SESSION['id'].", ".$_GET['bid'].", '".$_POST['textarea1']."', ".date("Ymd").", '".$_SESSION['name']."', ".$_POST['star-rating'].")";
+                $insertresult = pg_query($db_connection, $insertquery);
+                unset($_POST['textarea1']);
+                // if($insertresult>0){
+                //     header("./bookpage.php?bid=".$_GET['bid']);
+                // }
             }
             if(isset($_SESSION['id'])){
                 $query4 = "SELECT countstars, review, dated from ratingreview where uid=".$_SESSION['id']."and bid=".$_GET['bid'].";";
@@ -290,27 +224,22 @@ function responseMessage(msg) {
                     $star = intval($row1[0]);
                     $unstar = 5-$star;
                     echo '<div class="card z-depth-1">
-                <div class="card-content">
+                    <div class="card-content">
                     <div class="row valign-wrapper">
-                        <div class="col">
-                            <img src="images/501439.svg" height="60px" width="60px" class="circular">
-                        </div>
-                        <div class="col">
-                            <span class="card-title valign-wrapper">'.$_SESSION['name'].' - '.substr($row1[2],0,4).'/'.substr($row1[2],4,2).'/'.substr($row1[2],6,2).'</span>
-                        </div>
-                    </div>
-                    <div class="col"><p>';
+                        <div class="col s10">
+                            <span class="card-title valign-wrapper">'.$_SESSION['name'].'</span><p>'.$row1[1].'</p>
+                    <p>';
                     while($star!=0){
                         echo '<span class="fa fa-star checked"></span>';
                         $star--;
                     }
                     while($unstar!=0){
-                        echo '<span class="fa fa-star checked"></span>';
+                        echo '<span class="fa fa-star"></span>';
                         $unstar--;
                     }
                     echo '</p></div>
-                    <p>'.$row1[1].'</p>
-                </div>
+                    <div class="col center"><span>'.substr($row1[2],0,4).'/'.substr($row1[2],4,2).'/'.substr($row1[2],6,2).'</span></div>
+                </div></div>
                 </div>';
                 }
                 else{
@@ -318,18 +247,27 @@ function responseMessage(msg) {
                     echo '<h6>Write a Review</h6>
                     <div class="row">
                     <form class="" action="" method="POST">
-                        <div class="input-field ">
-                            <textarea name="textarea1" class="materialize-textarea" placeholder="I like this book because..." required></textarea>
-                        </div>
-                        <div class="rating-stars text-center">
-                        <input type="submit" name="Submit" class="btn seller"></input>
+                        <div class="input-field col s7">
+                            <textarea name="textarea1" class="materialize-textarea validate" placeholder="I like this book because..." required></textarea>
+                            <label>Review</label>
+                        </div>';
+                        echo '<div class="input-field center col s2">
+            					<input name="star-rating" type="text" class="validate" required>
+								<label for="star-rating">Star Rating</label>
+          					</div>
+                            <input type="submit" name="Submit" class=" review-submit btn center col s2 seller"></input>
                     </form>
                     </div>';
 
                        
                 }
             }
-                $query5 = "SELECT countstars, review, dated from ratingreview where uid!=".$_SESSION['id']." and bid=".$_GET['bid'].";";
+                if(isset($_SESSION['name'])){
+                    $query5 = "SELECT countstars, review, dated, username from ratingreview where uid!=".$_SESSION['id']." and bid=".$_GET['bid'].";";
+                }
+                else{
+                    $query5 = "SELECT countstars, review, dated, username from ratingreview where bid=".$_GET['bid'].";";
+                }
                 $result5 = pg_query($db_connection, $query5);
                 if(pg_num_rows($result5)>0){
                     $row5 = pg_fetch_row($result5);
@@ -342,7 +280,7 @@ function responseMessage(msg) {
                             <img src="images/501439.svg" height="60px" width="60px" class="circular">
                         </div>
                         <div class="col">
-                            <span class="card-title valign-wrapper">'.$_SESSION['name'].' - '.substr($row5[2],0,4).'/'.substr($row5[2],4,2).'/'.substr($row5[2],6,2).'</span>
+                            <span class="card-title valign-wrapper">'.$row5[3].' - '.substr($row5[2],0,4).'/'.substr($row5[2],4,2).'/'.substr($row5[2],6,2).'</span>
                         </div>
                     </div>
                     <div class="col"><p>';
@@ -351,7 +289,7 @@ function responseMessage(msg) {
                         $star1--;
                     }
                     while($unstar1!=0){
-                        echo '<span class="fa fa-star checked"></span>';
+                        echo '<span class="fa fa-star"></span>';
                         $unstar1--;
                     }
                     echo '</p></div>

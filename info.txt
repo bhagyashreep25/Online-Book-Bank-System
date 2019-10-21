@@ -1,8 +1,0 @@
-todo:
-user profile page
-display image on bookpage for reviews and sellers/renters
-show error messages on failed login/signup
-update query on index.php once populated db
-
-add in db
-populate all tables with actual values
