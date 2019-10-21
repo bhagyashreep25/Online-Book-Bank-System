@@ -78,7 +78,7 @@ require_once("./config.php");
 									else{
 										echo 'Pending</p></div>
 										
-											<a href="#" class="btn-flat review view right">View Profile</a>
+											<a href="profile.php?uid='.$row[6].'" class="btn-flat review view right">View Profile</a>
 										<div class="card-action col s12">
           									<a href="updatenotif.php?uid='.$row[5].'&requserid='.$row[6].'&bid='.$row[7].'&status=1" class="btn accept">Accept</a>
           									<a href="updatenotif.php?uid='.$row[5].'&requserid='.$row[6].'&bid='.$row[7].'&status=0" class="btn reject">Reject</a>
@@ -105,7 +105,7 @@ require_once("./config.php");
 					}
 				}
 				else{
-					echo '<h4>No Notifications :(</h4>';
+					echo '<h4>No Notifications</h4>';
 				}
 			?>
 		</div>

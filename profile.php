@@ -20,6 +20,8 @@ $result3 = pg_query($db_connection, $query3);
 
 $query4 = "SELECT name from book";
 $result4 = pg_query($db_connection, $query4);
+$result6 = pg_query($db_connection, $query4);
+$result7 = pg_query($db_connection, $query4);
 
 $query5 = "SELECT bid, imageurl, name, author, avgrating from readbook where uid=".$_GET['uid'].";";
 $result5 = pg_query($db_connection, $query5);
@@ -111,10 +113,13 @@ $result5 = pg_query($db_connection, $query5);
       						</label></p></div>';
 					}
 					echo '<div class="input-field col s6">
-            				<input value="'.$row[5].'" name="curread" type="text" class="validate">
-							<label for="name">Currently Reading</label>
-          				</div>
-					</div>
+							<select class="col s6" name="curread">
+      						<option value="'.$row[5].'" selected>'.$row[5].'</option>';
+					while($row7 = pg_fetch_row($result7)){
+						echo '<option value="'.$row7[0].'">'.$row7[0].'</option>';
+					}
+					echo '</select>
+						<label>Currently Reading</label></div>
 					<div class="row">
 						<div class="input-field col s6">
 						<select class="col s6" name="author">
@@ -127,7 +132,7 @@ $result5 = pg_query($db_connection, $query5);
 					</div>
 						<div class="input-field col s6">
 						<select class="col s6" name="genre">
-      						<option value="'.$row[6].'" selected>'.$row[7].'</option>';
+      						<option value="'.$row[7].'" selected>'.$row[7].'</option>';
 					while($row2 = pg_fetch_row($result2)){
 						echo '<option value="'.$row2[0].'">'.$row2[0].'</option>';
 					}
@@ -226,7 +231,7 @@ $result5 = pg_query($db_connection, $query5);
 					<div class="row center">
 						<div class="input-field col s4 center">
 							<select name="name">';
-						while($row4 = pg_fetch_row($result4)){
+						while($row4 = pg_fetch_row($result6)){
 							echo '<option value="'.$row4[0].'">'.$row4[0].'</option>';
 						}
       					echo '</select><label>Pick a Book</label></div>
@@ -303,7 +308,7 @@ $result5 = pg_query($db_connection, $query5);
 					</div>';
 
 					//Books Read
-					echo '<h4>Books You\'ve Read </h4>';
+					echo '<h4>Books They\'ve Read </h4>';
 					echo '<div class="row"><ul>';
 					$i=0;
 					if(pg_num_rows($result5)>0){

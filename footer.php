@@ -6,6 +6,9 @@
 		a{
 			color: white;
 		}
+    .foot{
+      color: white;
+    }
 	</style>
 	<body>
 		<footer class="page-footer">
@@ -13,7 +16,7 @@
             <div class="row">
               <div class="col l6 s12">
                 <h5 class="white-text">Book Bank</h5>
-                <p>This webiste was made as a part of Web Technology Project.<br>
+                <p class="foot">This webiste was made as a part of Web Technology Project.<br>
 				Created By- Bhagyashree Phadnis and Vidhi Shah</p>
               </div>
               <div class="col l4 offset-l2 s12">

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("./config.php");
 // echo $_GET['requserid'];
 $query = "SELECT uid from notifications where uid=".$_GET['uid']." and requserid=".$_GET['requserid']." and bid=".$_GET['bid'].";";
@@ -13,7 +14,7 @@ else{
 $uid = $_GET['uid'];
 $requserid = $_GET['requserid'];
 $bid = $_GET['bid'];
-$username = $_GET['username'];
+$username = $_SESSION['name'];
 $bookname = $_GET['bookname'];
 if($_GET['forsale']==1){
 	$forsale = 1;

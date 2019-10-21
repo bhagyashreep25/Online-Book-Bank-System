@@ -1,6 +1,6 @@
 <?php
 session_start();
-// header("Refresh:0");
+// echo $_SESSION['id'];
 require_once("./navbar.php");
 require_once("./config.php");
 if(isset($_SESSION['addnotif'])){
@@ -83,11 +83,17 @@ $result3 = pg_query($db_connection, $query3);
                             if(pg_num_rows($result1)>0){
                                 while($row3 = pg_fetch_row($result1)){
                                 echo '<li>
-                                <div class="collapsible-header valign-wrapper"><img src="images/501439.svg" height="60px" width="60px" class="circle">
-                                <div class="col">'.$row3[0].'<br>Price: '.$row3[1].'</div>
-                                <div class="col offset-m5"><a href="profile.php?uid='.$row3[2].'" class="right review">Visit Profile</a></div>
-                                <a href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row3[2].'&bid='.$row3[3].'&username='.$row3[0].'&bookname='.$row[1].'&forsale=1"><i class="material-icons email">add_comment</i></a></div>
-                                </li>';
+                                <div class="collapsible-header valign-wrapper">
+                                <div class="col s6">'.$row3[0].'<br>Price: '.$row3[1].'</div>
+                                <div class="col s3"><a href="profile.php?uid='.$row3[2].'" class="right review">Visit Profile</a></div>';
+                                if(!isset($_SESSION['id'])){
+                                    echo '<div class="col s3"><a href="login.php">Send Notif</a></div>';
+                                }
+                                else{
+                                    echo '<div class="col s3"><a class="review" href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row3[2].'&bid='.$row3[3].'&username='.$row3[0].'&bookname='.$row[1].'&forsale=1">Send Notif </a></div>';
+                                }
+                                
+                                echo '</li>';
                                 }
                             }
                             else{
@@ -108,11 +114,17 @@ $result3 = pg_query($db_connection, $query3);
                             if(pg_num_rows($result3)>0){
                                 while($row4 = pg_fetch_row($result3)){
                                 echo '<li>
-                                <div class="collapsible-header valign-wrapper"><img src="images/501439.svg" height="60px" width="60px" class="circle">
-                                <div class="col">'.$row4[0].'<br>Price: '.$row4[1].'</div>
-                                <div class="col offset-m5"><a href="profile.php?uid='.$row4[2].'" class="right review">Visit Profile</a></div>
-                                <a href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row4[2].'&bid='.$row4[3].'&username='.$row4[0].'&bookname='.$row[1].'&forsale=0"><i class="material-icons email">add_comment</i></a></div>
-                                </li>';
+                                <div class="collapsible-header valign-wrapper">
+                                <div class="col s6">'.$row4[0].'<br>Price: '.$row4[1].'</div>
+                                <div class="col s3"><a href="profile.php?uid='.$row4[2].'" class="right review">Visit Profile</a></div>';
+                                if(!isset($_SESSION['id'])){
+                                    echo '<div class="col s3"><a class="review" href="login.php">Send Notif</a></div>';
+                                }
+                                else{
+                                    echo '<div class="col s3"><a href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row3[2].'&bid='.$row3[3].'&username='.$row3[0].'&bookname='.$row[1].'&forsale=0">Send Notif</div>';
+                                }
+                                
+                                echo '</li>';
                                 }   
                             }
                             else{
@@ -262,40 +274,36 @@ $result3 = pg_query($db_connection, $query3);
                        
                 }
             }
-                if(isset($_SESSION['name'])){
-                    $query5 = "SELECT countstars, review, dated, username from ratingreview where uid!=".$_SESSION['id']." and bid=".$_GET['bid'].";";
+                if(isset($_SESSION['id'])){
+                    $query5 = "SELECT countstars, review, dated, username from ratingreview where uid<>".$_SESSION['id']." and bid=".$_GET['bid'].";";
                 }
                 else{
                     $query5 = "SELECT countstars, review, dated, username from ratingreview where bid=".$_GET['bid'].";";
                 }
                 $result5 = pg_query($db_connection, $query5);
                 if(pg_num_rows($result5)>0){
-                    $row5 = pg_fetch_row($result5);
-                    $star1 = intval($row5[0]);
-                    $unstar1 = 5-$star1;
+                    while($row5 = pg_fetch_row($result5)){
+                    $star = intval($row5[0]);
+                    $unstar = 5-$star;
                     echo '<div class="card z-depth-1">
-                <div class="card-content">
+                    <div class="card-content">
                     <div class="row valign-wrapper">
-                        <div class="col">
-                            <img src="images/501439.svg" height="60px" width="60px" class="circular">
-                        </div>
-                        <div class="col">
-                            <span class="card-title valign-wrapper">'.$row5[3].' - '.substr($row5[2],0,4).'/'.substr($row5[2],4,2).'/'.substr($row5[2],6,2).'</span>
-                        </div>
-                    </div>
-                    <div class="col"><p>';
-                    while($star1!=0){
+                        <div class="col s10">
+                            <span class="card-title valign-wrapper">'.$row5[3].'</span><p>'.$row5[1].'</p>
+                    <p>';
+                    while($star!=0){
                         echo '<span class="fa fa-star checked"></span>';
-                        $star1--;
+                        $star--;
                     }
-                    while($unstar1!=0){
+                    while($unstar!=0){
                         echo '<span class="fa fa-star"></span>';
-                        $unstar1--;
+                        $unstar--;
                     }
                     echo '</p></div>
-                    <p>'.$row5[1].'</p>
-                </div>
+                    <div class="col center"><span>'.substr($row5[2],0,4).'/'.substr($row5[2],4,2).'/'.substr($row5[2],6,2).'</span></div>
+                </div></div>
                 </div>';
+                }
                 }
             ?>
         </div>
