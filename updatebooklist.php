@@ -2,14 +2,15 @@
 require_once("./config.php");
 // echo $_GET['uid'];
 print_r($_POST);
-if($_POST['submit']=='delete'){
-	$query = "DELETE from booklist where uid=".$_GET['uid']." and bookname='".$_POST['book']."';";
-	$result = pg_query($db_connection, $query);
-	if($result){
-		header("Location:./profile.php?uid=".$_GET['uid']);
-	}
-}
-else if($_POST['submit']=='add'){
+// if($_POST['submit']=='delete'){
+// 	$query = "DELETE from booklist where uid=".$_GET['uid']." and bookname='".$_POST['book']."';";
+// 	$result = pg_query($db_connection, $query);
+// 	if($result){
+// 		header("Location:./profile.php?uid=".$_GET['uid']);
+// 	}
+// }
+// else 
+if($_POST['submit']=='add'){
 	// echo $_GET['uid'];
 	// print_r($_POST);
 	$query1 = "SELECT name from users where uid=".$_GET['uid'].";";

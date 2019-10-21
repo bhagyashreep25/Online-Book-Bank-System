@@ -72,7 +72,8 @@ $result5 = pg_query($db_connection, $query5);
 	</style>
 	<body>
 		<div class="container">
-			<?php 
+			<?php
+				if(isset($_SESSION['id'])){
 				if($_GET['uid']==$_SESSION['id']){
 					echo '<h4>Basic Profile</h4>';
 					echo  '<form action="updateprofile.php?uid='.$_GET['uid'].'" method="POST">
@@ -208,17 +209,18 @@ $result5 = pg_query($db_connection, $query5);
             					<input disabled value="'.$row3[0].'" name="book" type="text" class="validate">
 								<label for="book">Name</label>
           				</div>
-						<div class="input-field center col s3">
+						<div class="input-field center col s4">
             				<input disabled value="'.$row3[1].'" name="price" type="text" class="validate">
 							<label for="price">Price</label>
           				</div>
-						<div class="input-field center col s3">
+						<div class="input-field center col s4">
             				<input disabled value="'.$category.'" name="category" type="text" class="validate">
 							<label for="category">Category</label>
-          				</div>
-						<div class="col center s2">
-							<input type="submit" value="delete" name="submit" class="btn">
-						</div></div></form>';
+          				</div>';
+						// echo '<div class="col center s2">
+						// 	<input type="submit" value="delete" name="submit" class="btn">
+						// </div>';
+						echo '</div></form>';
 					}
 					}
 					else{
@@ -249,6 +251,7 @@ $result5 = pg_query($db_connection, $query5);
 								<input type="submit" value="add" name="submit" class="btn">
 							</div>
 					</div></form>';
+				}
 				}
 				else{
 					echo '<h4>Basic Profile</h4>';

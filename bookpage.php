@@ -87,7 +87,7 @@ $result3 = pg_query($db_connection, $query3);
                                 <div class="col s6">'.$row3[0].'<br>Price: '.$row3[1].'</div>
                                 <div class="col s3"><a href="profile.php?uid='.$row3[2].'" class="right review">Visit Profile</a></div>';
                                 if(!isset($_SESSION['id'])){
-                                    echo '<div class="col s3"><a href="login.php">Send Notif</a></div>';
+                                    echo '<div class="col s3"><a class="review" href="login.php">Send Notif</a></div>';
                                 }
                                 else{
                                     echo '<div class="col s3"><a class="review" href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row3[2].'&bid='.$row3[3].'&username='.$row3[0].'&bookname='.$row[1].'&forsale=1">Send Notif </a></div>';
@@ -121,7 +121,7 @@ $result3 = pg_query($db_connection, $query3);
                                     echo '<div class="col s3"><a class="review" href="login.php">Send Notif</a></div>';
                                 }
                                 else{
-                                    echo '<div class="col s3"><a href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row3[2].'&bid='.$row3[3].'&username='.$row3[0].'&bookname='.$row[1].'&forsale=0">Send Notif</div>';
+                                    echo '<div class="col s3"><a class="review" href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row3[2].'&bid='.$row3[3].'&username='.$row3[0].'&bookname='.$row[1].'&forsale=0">Send Notif</div>';
                                 }
                                 
                                 echo '</li>';

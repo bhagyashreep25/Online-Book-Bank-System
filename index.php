@@ -51,7 +51,7 @@ $_SESSION['callingPage'] = "./index.php";
 <body>
     <div class="carousel center">
         <?php
-        $query = "SELECT bid, imageurl from book where avgrating>=4.5 and bid>1020 limit 5;";
+        $query = "SELECT bid, imageurl from book where avgrating>=4.5 limit 5;";
 	    $result = pg_query($db_connection, $query);
         while($row = pg_fetch_row($result)){
             echo '<a class="carousel-item" href="bookpage.php?bid='.$row[0].'"><img src="' . $row[1] . '"></a>';
@@ -67,7 +67,7 @@ $_SESSION['callingPage'] = "./index.php";
                 $query1 = "SELECT max(bid) from book;";
                 $result1 = pg_query($db_connection, $query1);
                 $row1 = pg_fetch_row($result1);
-                $query2 = "SELECT bid, imageurl, name, author, avgrating from book where bid< ".$row1[0]."limit 8;";
+                $query2 = "SELECT bid, imageurl, name, author, avgrating from book where bid< ".$row1[0]." and bid>1030 limit 8;";
                 // $query2 = "SELECT bid, imageurl, name, author, avgrating from book where bid=1026 limit 8;";
                 $result2 = pg_query($db_connection, $query2);
                 $i=0;
@@ -107,7 +107,7 @@ $_SESSION['callingPage'] = "./index.php";
         <div class="row">
             <ul>
                 <?php
-                $query2 = "SELECT bid, imageurl, name, author, avgrating from book where bid=1001 limit 8;";
+                $query2 = "SELECT bid, imageurl, name, author, avgrating from book where bid<1010 limit 8;";
                 $result2 = pg_query($db_connection, $query2);
                 $i=0;
                 while($row2 = pg_fetch_row($result2)){
@@ -146,7 +146,7 @@ $_SESSION['callingPage'] = "./index.php";
         <div class="row">
             <ul>
                 <?php
-                $query2 = "SELECT bid, imageurl, name, author, avgrating from book where bid=1001 limit 8;";
+                $query2 = "SELECT bid, imageurl, name, author, avgrating from book where bid>1020 and bid<1030 limit 8;";
                 $result2 = pg_query($db_connection, $query2);
                 $i=0;
                 while($row2 = pg_fetch_row($result2)){
