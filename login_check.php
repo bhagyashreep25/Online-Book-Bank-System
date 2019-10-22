@@ -70,7 +70,7 @@
 					$result3 = pg_query($db_connection, $query3);
 					// $row3 = pg_fetch_assoc($result3);
 					// $presentEmail = $row3['email'];
-					if($result3==0){
+					if($result3==1){
 						$query = "SELECT max(uid) as maxuid from users;";
 						$result = pg_query($db_connection, $query);
 						$row = pg_fetch_assoc($result);

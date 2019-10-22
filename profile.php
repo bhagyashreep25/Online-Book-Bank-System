@@ -75,6 +75,7 @@ $result5 = pg_query($db_connection, $query5);
 			<?php
 				if(isset($_SESSION['id'])){
 				if($_GET['uid']==$_SESSION['id']){
+					$flag=1;
 					echo '<h4>Basic Profile</h4>';
 					echo  '<form action="updateprofile.php?uid='.$_GET['uid'].'" method="POST">
 						<div class="row">
@@ -252,8 +253,101 @@ $result5 = pg_query($db_connection, $query5);
 							</div>
 					</div></form>';
 				}
-				}
 				else{
+					echo '<h4>Basic Profile</h4>';
+					echo  '<div class="row">
+          					<div class="input-field col s6">
+            					<input disabled value="'.$row[0].'" name="name" type="text" class="validate">
+								<label for="name">Name</label>
+          					</div>
+      						<div class="input-field col s6">
+            					<input disabled value="'.$row[1].'" name="date" type="text" class="datepicker">
+								<label for="name">Date of Birth</label>
+          					</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+            					<input disabled value="'.$row[3].'" name="phone" type="text" class="validate">
+								<label for="name">Contact</label>
+          					</div>
+							<div class="input-field col s6">
+            					<input disabled value="'.$row[4].'" name="address" type="text" class="validate">
+								<label for="name">Place of Stay</label>
+          					</div>
+      					</div>';
+					if($row[2]=='M'){
+						echo '<div class="row"><div class="col s6"><span class="gender">Gender</span>
+							<p><label>
+        						<input disabled name="group1" value="M" type="radio" checked /><span>Male</span>
+							</label><label>
+        						<input disabled name="group1" value="F" type="radio" /><span>Female</span>
+      						</label></p></div>';
+					}
+					else{
+						echo '<div class="row"><div class="col s6"><span class="gender">Gender</span>
+							<p><label>
+        						<input disabled name="group1" value="M" type="radio" /><span>Male</span>
+							</label><label>
+        						<input disabled name="group1" value="F" type="radio" checked /><span>Female</span>
+      						</label></p></div>';
+					}
+					echo '<div class="input-field col s6">
+            				<input disabled value="'.$row[5].'" name="curread" type="text" class="validate">
+							<label for="name">Currently Reading</label>
+          				</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+						<select disabled class="col s6" name="author">
+      						<option value="'.$row[6].'" selected>'.$row[6].'</option>';
+      				echo '</select>
+						<label>Favourite Author</label>
+					</div>
+						<div class="input-field col s6">
+						<select disabled class="col s6" name="genre">
+      						<option value="'.$row[6].'" selected>'.$row[7].'</option>';
+      				echo '</select>
+						<label>Favourite Genre</label>
+					</div>';
+
+					//Books Read
+					echo '<h4>Books They\'ve Read </h4>';
+					echo '<div class="row"><ul>';
+					$i=0;
+					if(pg_num_rows($result5)>0){
+					while($row5 = pg_fetch_row($result5)){
+                    $ratingchecked = intval($row5[4]);
+                    $ratingunchecked = 5 - $ratingchecked;
+                    echo '<li>
+                    <div id="one" class="col s3 center">
+                        <a href="bookpage.php?bid='.$row5[0].'"><img src="'.$row5[1].'" width="150" height="230"></a>
+                        <h6>'.$row5[2].'</h6>
+                        <p>'.$row5[3].'</p>
+                        <p>';
+                    while($ratingchecked!=0){
+                        echo '<span class="fa fa-star checked"></span>';
+                        $ratingchecked = $ratingchecked - 1;
+                    }
+                    while($ratingunchecked!=0){
+                        echo '<span class="fa fa-star"></span>';
+                        $ratingunchecked = $ratingunchecked - 1;
+                    }
+                    echo '</p>
+                    </div>
+                    </li>';
+                    $i++;
+                    if($i==4){
+                        echo '</ul></div><div class="row"><ul>';
+                    }
+                	}
+					echo  '</ul></div>';
+					}
+					else{
+						echo '<span>No Read Books Yet</span>';
+					}
+				}
+				}
+				else if(isset($_SESSION['id']) and $_SESSION['id']!=$_GET['uid']){
 					echo '<h4>Basic Profile</h4>';
 					echo  '<div class="row">
           					<div class="input-field col s6">

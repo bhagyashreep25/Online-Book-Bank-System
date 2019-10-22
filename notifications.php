@@ -49,6 +49,9 @@ require_once("./config.php");
 			<?php
 				$query = "SELECT requsername, bookname, status, forsale, forrent, uid, requserid, bid from notifications where uid=".$_GET['uid'].";";
 				$result = pg_query($db_connection, $query);
+				// $insideq = "SELECT email, phone from users where uid=".$row[6].";";
+				// $insider = pg_query($db_connection, $insideq);
+				// $insiderow = pg_fetch_row($insider);
 				if(pg_num_rows($result)>0){
 					echo '<h4>Notifications</h4>';
 					while($row = pg_fetch_row($result)){
