@@ -92,6 +92,7 @@
             <ul id="dropdown1" class="dropdown-content right">
                 <li><a href="profile.php?uid=<?php echo $_SESSION['id'];?>" class="black-text">Profile</a></li>
                 <li><a href="notifications.php?uid=<?php echo $_SESSION['id'];?>" class="black-text">Notifications</a></li>
+                <li><a href="addbook.php" class="black-text">Add Book</a></li>
                 <li><a href="logout.php" class="black-text">Log Out</a></li>
             </ul>
         </div>
