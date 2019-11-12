@@ -70,7 +70,8 @@
 					$result3 = pg_query($db_connection, $query3);
 					// $row3 = pg_fetch_assoc($result3);
 					// $presentEmail = $row3['email'];
-					if($result3==1){
+					if(pg_num_rows($result3)==0){
+						print_r(pg_num_rows($result3));
 						$query = "SELECT max(uid) as maxuid from users;";
 						$result = pg_query($db_connection, $query);
 						$row = pg_fetch_assoc($result);
@@ -109,7 +110,7 @@
 				}
 			}
 			else{
-				$_SESSION['errorMessage2']="Error: Password and Confirm Password do not match";
+				$_SESSION['errorMessage2']="Error: Password and Confirm Password fields do not match";
 				header("Location:./login.php");
 				exit();
 			}

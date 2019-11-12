@@ -207,20 +207,20 @@ $result5 = pg_query($db_connection, $query5);
 							$category="Rental";
 						}
 						echo '<div class="row center"><div class="input-field center col s4">
-            					<input disabled value="'.$row3[0].'" name="book" type="text" class="validate">
+            					<input value="'.$row3[0].'" name="book" type="text" class="validate" readonly>
 								<label for="book">Name</label>
           				</div>
-						<div class="input-field center col s4">
-            				<input disabled value="'.$row3[1].'" name="price" type="text" class="validate">
+						<div class="input-field center col s3">
+            				<input value="'.$row3[1].'" name="price" type="text" class="validate" readonly>
 							<label for="price">Price</label>
           				</div>
-						<div class="input-field center col s4">
-            				<input disabled value="'.$category.'" name="category" type="text" class="validate">
+						<div class="input-field center col s3">
+            				<input value="'.$category.'" name="category" type="text" class="validate" readonly>
 							<label for="category">Category</label>
           				</div>';
-						// echo '<div class="col center s2">
-						// 	<input type="submit" value="delete" name="submit" class="btn">
-						// </div>';
+						echo '<div class="col center s2">
+							<input type="submit" value="delete" name="submit" class="btn">
+						</div>';
 						echo '</div></form>';
 					}
 					}
