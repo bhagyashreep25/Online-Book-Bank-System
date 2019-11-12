@@ -19,7 +19,7 @@ $ratingunchecked = 5-$ratingchecked;
 $query1 = "SELECT username, price, uid, bid from booklist where bid=".$_GET['bid']." and forsale=1;";
 $result1 = pg_query($db_connection, $query1);
 
-$query3 = "SELECT username, price, uid, bid from booklist where bid=".$_GET['bid']." and forrent=1;";
+$query3 = "SELECT username, price, uid, bid, rentcount from booklist where bid=".$_GET['bid']." and forrent=1;";
 $result3 = pg_query($db_connection, $query3);
 ?>
 <html lang="en">
@@ -115,13 +115,13 @@ $result3 = pg_query($db_connection, $query3);
                                 while($row4 = pg_fetch_row($result3)){
                                 echo '<li>
                                 <div class="collapsible-header valign-wrapper">
-                                <div class="col s6">'.$row4[0].'<br>Price: '.$row4[1].'</div>
+                                <div class="col s6">'.$row4[0].'<br>Price: '.$row4[1].'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRent Count: '.$row4[4].'</div>
                                 <div class="col s3"><a href="profile.php?uid='.$row4[2].'" class="right review">Visit Profile</a></div>';
                                 if(!isset($_SESSION['id'])){
                                     echo '<div class="col s3"><a class="review" href="login.php">Send Notif</a></div>';
                                 }
                                 else{
-                                    echo '<div class="col s3"><a class="review" href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row3[2].'&bid='.$row3[3].'&username='.$row3[0].'&bookname='.$row[1].'&forsale=0">Send Notif</div>';
+                                    echo '<div class="col s3"><a class="review" href="addnotif.php?requserid='.$_SESSION['id'].'&uid='.$row4[2].'&bid='.$row4[3].'&username='.$row4[0].'&bookname='.$row[1].'&forsale=0">Send Notif</div>';
                                 }
                                 
                                 echo '</li>';
@@ -259,7 +259,7 @@ $result3 = pg_query($db_connection, $query3);
                     echo '<h6>Write a Review</h6>
                     <div class="row">
                     <form class="" action="" method="POST">
-                        <div class="input-field col s7">
+                        <div class="input-field col s8">
                             <textarea name="textarea1" class="materialize-textarea validate" placeholder="I like this book because..." required></textarea>
                             <label>Review</label>
                         </div>';
@@ -267,7 +267,7 @@ $result3 = pg_query($db_connection, $query3);
             					<input name="star-rating" type="text" class="validate" required>
 								<label for="star-rating">Star Rating</label>
           					</div>
-                            <input type="submit" name="Submit" class=" review-submit btn center col s2 seller"></input>
+                            <input type="submit" name="Submit" class=" review-submit btn col seller"></input>
                     </form>
                     </div>';
 

@@ -2,7 +2,7 @@
 session_start();
 require_once("./config.php");
 // echo $_GET['requserid'];
-$query = "SELECT uid from notifications where uid=".$_GET['uid']." and requserid=".$_GET['requserid']." and bid=".$_GET['bid'].";";
+$query = "SELECT uid from notifications where userid=".$_GET['uid']." and requserid=".$_GET['requserid']." and bid=".$_GET['bid'].";";
 $result = pg_query($db_connection, $query);
 if(pg_num_rows($result)>0){
 	$_SESSION['addnotif']="success";
@@ -14,7 +14,8 @@ else{
 $uid = $_GET['uid'];
 $requserid = $_GET['requserid'];
 $bid = $_GET['bid'];
-$username = $_SESSION['name'];
+$requsername = $_SESSION['name'];
+$username = $_GET['username'];
 $bookname = $_GET['bookname'];
 if($_GET['forsale']==1){
 	$forsale = 1;
@@ -24,7 +25,7 @@ else{
 	$forsale = 0;
 	$forrent = 1;
 }
-$query1 = "INSERT into notifications values (".$uid.", ".$requserid.", ".$bid.", -1, '".$username."', '".$bookname."', ".$forsale.", ".$forrent.");";
+$query1 = "INSERT into notifications values (".$uid.", ".$requserid.", ".$bid.", -1, '".$requsername."', '".$bookname."', ".$forsale.", ".$forrent.", '".$username."');";
 $result1 = pg_query($db_connection, $query1);
 if($result1>0){
 	$_SESSION['addnotif']="success";

@@ -26,7 +26,7 @@ if($_POST['submit']=='add'){
 		$forrent=1;
 	}
 	$query3 = "INSERT into booklist values (".$_GET['uid'].", ".$row2[0].", ".$_POST['category'].", ".$forrent.", '".$row1[0]."', 
-	'".$_POST['name']."', ".$_POST['price'].");";
+	'".$_POST['name']."', ".$_POST['price'].", 0);";
 	$result3 = pg_query($db_connection, $query3);
 	if($result3){
 		header("Location:./profile.php?uid=".$_GET['uid']);
