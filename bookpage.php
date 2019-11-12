@@ -142,10 +142,10 @@ $result3 = pg_query($db_connection, $query3);
                         <div class="card des">
                             <div class="card-content con">
                                 <span class="card-title des">Description</span>
-                                <p><?php echo substr($row[3], 0, 50);?></p>
+                                <p><?php echo substr($row[3], 0, 100).'...';?></p>
                             </div>
                             <div class="card-action">
-                                <a href="#modal1" class="modal-trigger">More</a>
+                                <a href="#modal1" class="modal-trigger more">More</a>
                             </div>
                         </div> 
                     </div>

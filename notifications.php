@@ -47,7 +47,7 @@ require_once("./config.php");
 	<body>
 		<div class="container">
 			<?php
-				$query = "SELECT requsername, bookname, status, forsale, forrent, uid, requserid, bid from notifications where uid=".$_GET['uid'].";";
+				$query = "SELECT requsername, bookname, status, forsale, forrent, userid, requserid, bid, email, phone from notifications inner join users on requserid=uid where userid=".$_GET['uid'].";";
 				$result = pg_query($db_connection, $query);
 				// $insideq = "SELECT email, phone from users where uid=".$row[6].";";
 				// $insider = pg_query($db_connection, $insideq);
@@ -55,6 +55,9 @@ require_once("./config.php");
 				if(pg_num_rows($result)>0){
 					echo '<h4>Notifications</h4>';
 					while($row = pg_fetch_row($result)){
+						// $insideq = "SELECT email, phone from users where uid=".$row[6].";";
+						// $insider = pg_query($db_connection, $insideq);
+						// $insiderow = pg_fetch_row($insider);
 						echo '<div class="row">
     						
       							<div class="card row z-depth-1 col s12">
@@ -89,27 +92,80 @@ require_once("./config.php");
         								</div>';
 									}
 									echo '</div>
-    						
   						</div>';
-						
-						$insideq = "SELECT email, phone from users where uid=".$row[6].";";
-						$insider = pg_query($db_connection, $insideq);
-						$insiderow = pg_fetch_row($insider);
-
+						// echo $row[6];
+						// while($insiderow = pg_fetch_row($insider)){
 						echo '<div id="modal1" class="modal">
     						<div class="modal-content">
       							<h4>'.$row[0].'</h4>
+      							<p>Email Address: '.$row[8].'<br>Phone Number: '.$row[9].'</p>
+    						</div>
+    						<div class="modal-footer">
+      							<a href="" class="btn modal-close accept">Close</a>
+    						</div>
+  						</div>';
+						// }
+					}
+				}
+				else{
+					echo '<h4>No Notifications</h4>';
+				}
+
+				//own requests
+				$query1 = "SELECT username, bookname, status, forsale, forrent, userid, requserid, bid from notifications where requserid=".$_GET['uid'].";";
+				$result1 = pg_query($db_connection, $query1);
+				if(pg_num_rows($result1)>0){
+					echo '<h4>Requested Notifications</h4>';
+					while($row1 = pg_fetch_row($result1)){
+						$insideq = "SELECT email, phone from users where uid=".$row1[6].";";
+						$insider = pg_query($db_connection, $insideq);
+						// $insiderow = pg_fetch_row($insider);
+						echo '<div class="row">
+      							<div class="card row z-depth-1 col s12">
+        							<div class="card-content white-text col s8">
+          							<p>
+										<b>You </b> have requested to ';
+									if($row1[3]){
+										echo 'buy';
+									}
+									else{
+										echo 'rent';
+									}
+									echo ' <b>'.$row1[1].'</b> from <b>'.$row1[0].'</b>
+									<br>Status: ';
+									if($row1[2]==1){
+										echo 'Accepted</p></div>
+										
+          								<a href="#modal1" class="btn-flat review view modal-trigger right" >View Contact Details</a>';
+									}
+									else if($row1[2]==0){
+										echo 'Rejected</p></div>';
+									}
+									else{
+										echo 'Pending</p></div>
+										
+											<a href="profile.php?uid='.$row1[5].'" class="btn-flat review view right">View Profile</a>';
+									}
+									echo '</div>
+  						</div>';
+						// echo $row1[6];
+						while($insiderow = pg_fetch_row($insider)){
+						echo '<div id="modal1" class="modal">
+    						<div class="modal-content">
+      							<h4>'.$row1[0].'</h4>
       							<p>Email Address: '.$insiderow[0].'<br>Phone Number: '.$insiderow[1].'</p>
     						</div>
     						<div class="modal-footer">
       							<a href="" class="btn modal-close accept">Close</a>
     						</div>
   						</div>';
+						}
 					}
 				}
 				else{
 					echo '<h4>No Notifications</h4>';
 				}
+
 			?>
 		</div>
 	</body>

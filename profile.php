@@ -347,7 +347,8 @@ $result5 = pg_query($db_connection, $query5);
 					}
 				}
 				}
-				else if(isset($_SESSION['id']) and $_SESSION['id']!=$_GET['uid']){
+				else //if(isset($_SESSION['id']) and $_SESSION['id']!=$_GET['uid'])
+				{
 					echo '<h4>Basic Profile</h4>';
 					echo  '<div class="row">
           					<div class="input-field col s6">
